@@ -11,6 +11,7 @@ import com.google.common.collect.Maps;
  * @author yelihu
  **/
 public class DefaultSingletonBeanRegistry implements SingletonBeanRegistry {
+
     private Map<String, Object> singletonMap = Maps.newHashMap();
 
     @Override
