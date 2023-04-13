@@ -10,26 +10,23 @@ import org.example.mini.spring.bean.factory.config.DefaultSingletonBeanRegistry;
  * @author yelihu
  **/
 public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry implements BeanFactory {
-    @Override
-    public Object getBean(String beanName) {
 
+    /**
+     * 含参获取Bean Instance
+     *
+     * @param beanName bean名称
+     * @param args 构造函数需要的参数
+     */
+    @Override
+    public Object getBean(String beanName, Object... args) {
         Object bean = getSingleton(beanName);
         if (bean != null) {
             return bean;
         }
         BeanDefinition beanDefinition = getBeanDefinition(beanName);
 
-        return createBean(beanName, beanDefinition);
+        return createBean(beanName, beanDefinition, args);
     }
-
-    /**
-     * 根据元数据创建bean实例
-     *
-     * @param beanName bean名称
-     * @param beanDefinition bean元数据
-     * @return bean 实例
-     */
-    protected abstract Object createBean(String beanName, BeanDefinition beanDefinition);
 
     /**
      * 获取BD bean的元数据
@@ -38,4 +35,6 @@ public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry i
      * @return bean的元数据
      */
     protected abstract BeanDefinition getBeanDefinition(String beanName);
+
+    protected abstract Object createBean(String beanName, BeanDefinition beanDefinition, Object[] args);
 }
