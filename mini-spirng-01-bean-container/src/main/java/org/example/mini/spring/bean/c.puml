@@ -1,0 +1,5 @@
+@startuml
+class org.example.mini.spring.bean.factory.config.BeanDefinition {
+- Class<?> beanClass
+}
+@enduml

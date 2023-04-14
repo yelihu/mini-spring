@@ -1,0 +1,55 @@
+@startuml
+class org.example.mini.spring.bean.factory.support.instantiation.impl.JdkInstantiationStrategyImpl {
++ Object instantiate(String,BeanDefinition,Constructor<?>,Object[])
+}
+abstract class org.example.mini.spring.bean.factory.support.AbstractBeanFactory {
++ Object getBean(String,Object)
+# {abstract}BeanDefinition getBeanDefinition(String)
+# {abstract}Object createBean(String,BeanDefinition,Object[])
+}
+interface org.example.mini.spring.bean.factory.config.SingletonBeanRegistry {
+~ Object getSingleton(String)
+~ void registerSingleton(String,Object)
+}
+interface org.example.mini.spring.bean.factory.support.instantiation.InstantiationStrategy {
+~ Object instantiate(String,BeanDefinition,Constructor<?>,Object[])
+}
+interface org.example.mini.spring.bean.factory.BeanFactory {
+~ Object getBean(String,Object)
+}
+abstract class org.example.mini.spring.bean.factory.support.AbstractAutowireCapableBeanFactory {
+- InstantiationStrategy instantiationStrategy
+# Object createBean(String,BeanDefinition,Object[])
+- Object createBeanInstance(String,BeanDefinition,Object[])
+}
+class org.example.mini.spring.bean.factory.config.DefaultSingletonBeanRegistry {
+- Map<String,Object> singletonMap
++ Object getSingleton(String)
++ void registerSingleton(String,Object)
+}
+interface org.example.mini.spring.bean.factory.support.BeanDefinitionRegistry {
+~ void registerBeanDefinition(String,BeanDefinition)
+~ BeanDefinition getBeanDefinition(String)
+}
+class org.example.mini.spring.bean.factory.config.BeanDefinition {
+- Class<?> beanClass
+}
+class org.example.mini.spring.bean.factory.support.instantiation.impl.CglibSubclassingInstantiationStrategyImpl {
++ Object instantiate(String,BeanDefinition,Constructor<?>,Object[])
+}
+class org.example.mini.spring.bean.factory.support.DefaultListableBeanFactory {
+- Map<String,BeanDefinition> beanDefinitionMap
++ void registerBeanDefinition(String,BeanDefinition)
++ BeanDefinition getBeanDefinition(String)
+}
+
+
+org.example.mini.spring.bean.factory.support.instantiation.InstantiationStrategy <|.. org.example.mini.spring.bean.factory.support.instantiation.impl.JdkInstantiationStrategyImpl
+org.example.mini.spring.bean.factory.BeanFactory <|.. org.example.mini.spring.bean.factory.support.AbstractBeanFactory
+org.example.mini.spring.bean.factory.config.DefaultSingletonBeanRegistry <|-- org.example.mini.spring.bean.factory.support.AbstractBeanFactory
+org.example.mini.spring.bean.factory.support.AbstractBeanFactory <|-- org.example.mini.spring.bean.factory.support.AbstractAutowireCapableBeanFactory
+org.example.mini.spring.bean.factory.config.SingletonBeanRegistry <|.. org.example.mini.spring.bean.factory.config.DefaultSingletonBeanRegistry
+org.example.mini.spring.bean.factory.support.instantiation.InstantiationStrategy <|.. org.example.mini.spring.bean.factory.support.instantiation.impl.CglibSubclassingInstantiationStrategyImpl
+org.example.mini.spring.bean.factory.support.BeanDefinitionRegistry <|.. org.example.mini.spring.bean.factory.support.DefaultListableBeanFactory
+org.example.mini.spring.bean.factory.support.AbstractAutowireCapableBeanFactory <|-- org.example.mini.spring.bean.factory.support.DefaultListableBeanFactory
+@enduml
